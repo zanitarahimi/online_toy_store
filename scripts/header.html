@@ -1,0 +1,133 @@
+<?php
+error_reporting(E_ERROR | E_PARSE);
+define('BASE_URL', 'http://localhost/ZOA-TOYS');
+session_start();
+if (isset( $_SESSION['logged_in'] )) {
+    if ( $_SESSION['logged_in'] != 1 ) {
+      $_SESSION['message'] = "Duhet të kyçesh së pari!";
+      header("location: error.php");    
+    }
+    else {
+        $first_name = $_SESSION['first_name'];
+        $last_name = $_SESSION['last_name'];
+        $email = $_SESSION['email'];
+        $id = $_SESSION['id'];
+    }
+}
+?>
+<!DOCTYPE html>
+<html class="no-js"> 
+<head>
+   
+    <meta charset="utf-8">
+    <title>Toys Store</title>
+
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+
+  
+    <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/bootstrap.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/normalize.min.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/animate.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/templatemo-misc.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>/css/templatemo-style.css">
+
+    <script src="<?php echo BASE_URL; ?>/js/vendor/modernizr-2.6.2.min.js"></script>
+
+</head>
+<body>
+  
+    <header class="site-header">
+        <div class="top-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-6">
+                        <div class="top-header-left">
+                            <?php 
+                                if (isset($_SESSION['logged_in'])) {
+                                    $res = "<a href='#'>Pershendetje $first_name $last_name</a>";
+                                    $res = $res."<a href='".BASE_URL."/Shporta.php'><img src='".BASE_URL."/images/shporta.png' width=25></a>";
+                                    $res = $res.'<a href="' . BASE_URL . '/scripts/logout.php">Dilni</a>';
+                                    echo $res;
+                                } else {
+                                    $res = '<a href="' . BASE_URL . '/scripts/index.php">Regjistrohu / Kyçu</a>';
+                                    $res = $res."<a href='#'><img src='".BASE_URL."/images/shporta.png' width=25></a>";
+                                    echo $res; 
+                                }
+                            ?>
+                            
+                        </div> 
+                    </div>
+
+                    <div class="col-md-6 col-sm-6">
+                        <div class="social-icons">
+                            <ul>
+                                <li><a href="#" class="fa fa-facebook"></a></li>
+                                <!--<li><a href="#" class="fa fa-dribbble"></a></li>-->
+                                <li><a href="#" class="fa fa-twitter"></a></li>
+                                <li><a href="#" class="fa fa-linkedin"></a></li>
+                            </ul>
+                            <div class="clearfix"></div>
+                        </div> <!-- /.social-icons -->
+                    </div> <!-- /.col-md-6 -->
+                </div> <!-- /.row -->
+            </div> <!-- /.container -->
+        </div> <!-- /.top-header -->
+
+
+        <div class="main-header">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-4 col-sm-6 col-xs-8">
+                        <div class="logo">
+                            <h1><a href="#">ZOA Toys</a></h1>
+                        </div> <!-- /.logo -->
+                    </div> <!-- /.col-md-4 -->
+
+                    <div class="col-md-8 col-sm-6 col-xs-4">
+                        <div class="main-menu">
+                            <a href="#" class="toggle-menu">
+                                <i class="fa fa-bars"></i>
+                            </a>
+                            <ul class="menu">
+                                <li><a href="<?php echo BASE_URL; ?>/index.php">Ballina</a></li>
+                                <li><a href="<?php echo BASE_URL; ?>/lodraPerVajza.php">Lodrat per vajza</a></li>
+                                <li><a href="<?php echo BASE_URL; ?>/lodraPerDjem.php">Lodrat per djem</a></li>
+                               <!-- <li><a href="#">Policies</a></li>-->
+                                <li><a href="#about-us">Rreth Nesh</a></li>
+                            </ul>
+                        </div> <!-- /.main-menu -->
+                    </div> <!-- /.col-md-8 -->
+                </div> <!-- /.row -->
+            </div> <!-- /.container -->
+        </div> <!-- /.main-header -->
+
+        <div class="main-nav">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 col-sm-7">
+                        <div class="list-menu">
+                            <ul>
+                                <li><a href="<?php echo BASE_URL; ?>/index.php">Lodra</a></li>
+                                <li><a id = 'detaje' href="">Detaje</a></li>
+                                <li><a href="<?php echo BASE_URL; ?>/Kontakti.php">Kontakti</a></li>
+
+                                
+                            </ul>
+                        </div> <!-- /.list-menu -->
+                    </div> <!-- /.col-md-6 -->
+
+                    <div class="col-md-6 col-sm-5">
+                        <div class="notification">
+                            <!-- <span>Transporti falas nëse bleni më shumë se €20</span> -->
+                        </div>
+                    </div> <!-- /.col-md-6 -->
+                </div> <!-- /.row -->
+            </div> <!-- /.container -->
+        </div> <!-- /.main-nav -->
+    </header> <!-- /.site-header -->
+<script type="text/javascript">
+    document.getElementById('detaje').href = `singleProduct.php?ID=${Math.floor(Math.random()*7)}`;
+</script>
